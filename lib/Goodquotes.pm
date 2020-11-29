@@ -31,8 +31,6 @@ sub run {
                      $feed->entries;
 
         for my $e (@sorted) {
-            my $time = $e->issued->epoch;
-
             my $res = $self->ua->get($e->link);
             if (!$res->is_success) {
                 info "failed to fetch quote: %s", $res->status_line;
@@ -46,7 +44,7 @@ sub run {
 
             $twitter->post($e->link, $image);
 
-            $self->state->last_pubdate($newest);
+            $self->state->last_pubdate($e->issued->epoch);
             $self->state->save;
         }
 
