@@ -1,6 +1,6 @@
 # Goodquotes
 
-This program monitors Goodreads for new quotes, and reposts them to Twitter as an embedded image. This is useful because there is currently Kindle devices can only share quotes to Goodreads. This tool allows you to indirectly share Kindle quotes to Twitter.
+This program monitors Goodreads for new quotes, and reposts them to Twitter as an embedded image. This is useful because Kindle devices can only share quotes to Goodreads. This tool allows you to indirectly share Kindle quotes to Twitter.
 
 A sample image generated from a Goodreads quote:
 
