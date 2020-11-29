@@ -16,6 +16,11 @@ my $scraper = scraper {
 sub new_from_html {
     my ( $class, $html ) = @_;
     my $res = $scraper->scrape($html);
+
+    if (!$res) {
+      die "error scraping quote from html";
+    }
+
     $res->{author} =~ s/\s*,\s*$//;
     $res->{author} =~ s/^\s+//;
     return $class->new(%$res);

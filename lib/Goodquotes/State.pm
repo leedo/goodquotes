@@ -4,7 +4,9 @@ use strict;
 use warnings;
 
 use Storable qw(nfreeze thaw);
-use Class::Tiny qw(path last_pubdate);
+use Class::Tiny qw(path), {
+  last_pubdate => 0
+};
 
 sub load {
     my ($class, $path) = @_;

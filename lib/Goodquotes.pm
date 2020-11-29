@@ -27,12 +27,11 @@ sub run {
             goto NEXT;
         };
 
-        my $last = $self->state->last_pubdate;
-        my @sorted = sort { $a->issued->epoch <=> $b->issued->epoch }
-                     grep { $_->issued->epoch > $last }
+        my @new = sort { $a->issued->epoch <=> $b->issued->epoch }
+                     grep { $_->issued->epoch > $self->state->last_pubdate }
                      $feed->entries;
 
-        for my $e (@sorted) {
+        for my $e (@new) {
             my $res = $self->ua->get($e->link);
             if (!$res->is_success) {
                 info "failed to fetch quote: %s", $res->status_line;
@@ -41,10 +40,16 @@ sub run {
 
             info "posting %s", $e->link;
 
-            my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
-            my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
+            eval {
+              my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
+              my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
+              $twitter->post($e->link, $image);
+            };
 
-            $twitter->post($e->link, $image);
+            if (my $err = $@) {
+              info "aborted %s due to error: %s", $e->link, $err;
+              goto NEXT;
+            }
 
             $self->state->last_pubdate($e->issued->epoch);
             $self->state->save;

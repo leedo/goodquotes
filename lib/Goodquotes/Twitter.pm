@@ -20,7 +20,16 @@ sub post {
   );
 
   my $media = $client->upload([undef, "image.png", Content => $image]);
+
+  if (!$media) {
+    die "error posting image";
+  }
+
   my $post  = $client->update($text, {media_ids => $media->{media_id}});
+
+  if (!$post) {
+    die "error posting status";
+  }
 }
 
 1;

@@ -5,6 +5,8 @@ use warnings;
 
 use Cairo;
 use Pango;
+use Symbol qw(gensym);
+use IPC::Open3;
 
 use constant {
     PANGO_SCALE => 1024,
@@ -31,7 +33,7 @@ sub hex_to_rgb {
 sub render {
     my ($self, $entry) = @_;
 
-    my $surface = Cairo::ImageSurface->create('rgb24', $self->canvas_width, CANVAS_HEIGHT);
+    my $surface = Cairo::RecordingSurface->create("color", undef);
     my $cr = Cairo::Context->create($surface);
 
     $cr->rectangle(0, 0, $self->canvas_width, CANVAS_HEIGHT);
@@ -56,6 +58,13 @@ sub render {
     $height += ( $h / PANGO_SCALE) + $self->padding;
 
     Pango::Cairo::show_layout($cr, $layout);
+
+    $cr->move_to($self->padding, $height);
+    $cr->set_line_width(0.5);
+    $cr->line_to($self->canvas_width - $self->padding, $height);
+    $cr->stroke;
+
+    $height += $self->padding;
 
     $cr->move_to($self->padding, $height);
 
@@ -89,13 +98,29 @@ sub render {
 
     Pango::Cairo::show_layout($cr, $layout3);
 
-    my $surface2 = Cairo::ImageSurface->create('rgb24', $self->canvas_width, $height);
+    my ($in, $out, $err);
+    $err = gensym;
+
+    my $pid = open3 $in, $out, $err, 'inkscape', '-z', '-', '-e', '-', '-d', '300';
+
+    my $surface2 = Cairo::SvgSurface->create_for_stream( sub { print $in $_[1] }, undef, $self->canvas_width, $height);
     my $cr2 = Cairo::Context->create($surface2);
     $cr2->set_source_surface($surface, 0, 0);
     $cr2->paint;
+    $surface2->finish;
 
-    my $png = '';
-    $surface2->write_to_png_stream( sub { $png .= $_[1] });
+    close $in;
+
+    my $png = join '', <$out>;
+    my $errmsg = join '', <$err>;
+
+    waitpid($pid, 0);
+    my $exit = $? >> 8;
+
+    if ($exit != 0) {
+      die "error rendering png exit=$exit: $errmsg";
+    }
+
     return $png;
 }
 
