@@ -59,7 +59,7 @@ sub run {
             info "posting %s", $e->link;
 
             my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
-            my $image = Goodquotes::Renderer->new->render($entry);
+            my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
             my $media = $client->upload([undef, "image.png", Content => $image]);
             my $post  = $client->update($e->link, {media_ids => $media->{media_id}});
 

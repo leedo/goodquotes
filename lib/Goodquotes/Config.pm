@@ -1,5 +1,8 @@
 package Goodquotes::Config;
 
+use strict;
+use warnings;
+
 use JSON::PP;
 use Class::Tiny qw(
     quotes_feed
@@ -7,10 +10,23 @@ use Class::Tiny qw(
     access_token_secret
     consumer_key
     consumer_key_secret
+    background
+    quote_font
+    author_font
+    source_font
+    font_color
+    canvas_width
+    padding
+    line_spacing
 ), {
     poll_interval => 300,
     state_path => "./state.db",
 };
+
+sub render_opts {
+    my $self = shift;
+    return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing);
+}
 
 sub new_from_path {
     my ($class, $path) = @_;
