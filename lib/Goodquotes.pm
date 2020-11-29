@@ -28,8 +28,8 @@ sub run {
         };
 
         my @new = sort { $a->issued->epoch <=> $b->issued->epoch }
-                     grep { $_->issued->epoch > $self->state->last_pubdate }
-                     $feed->entries;
+                  grep { $_->issued->epoch > $self->state->last_pubdate }
+                  $feed->entries;
 
         for my $e (@new) {
             my $res = $self->ua->get($e->link);
@@ -41,14 +41,14 @@ sub run {
             info "posting %s", $e->link;
 
             eval {
-              my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
-              my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
-              $twitter->post($e->link, $image);
+                my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
+                my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
+                $twitter->post($e->link, $image);
             };
 
             if (my $err = $@) {
-              info "aborted %s due to error: %s", $e->link, $err;
-              goto NEXT;
+                info "aborted %s due to error: %s", $e->link, $err;
+                goto NEXT;
             }
 
             $self->state->last_pubdate($e->issued->epoch);
