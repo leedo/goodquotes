@@ -18,6 +18,7 @@ use Class::Tiny qw(
     canvas_width
     padding
     line_spacing
+    border_color
 ), {
     poll_interval => 300,
     state_path => "./state.db",

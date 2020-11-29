@@ -20,6 +20,7 @@ use Class::Tiny {
     author_font  => "Georgia Bold 12",
     source_font  => "Georgia Italic 12",
     font_color   => "33302e",
+    border_color => "ccc1b7",
     canvas_width => 800,
     padding      => 16,
     line_spacing => 4,
@@ -59,6 +60,7 @@ sub render {
 
     Pango::Cairo::show_layout($cr, $layout);
 
+    $cr->set_source_rgb( hex_to_rgb($self->border_color) );
     $cr->move_to($self->padding, $height);
     $cr->set_line_width(0.5);
     $cr->line_to($self->canvas_width - $self->padding, $height);
@@ -66,6 +68,7 @@ sub render {
 
     $height += $self->padding;
 
+    $cr->set_source_rgb( hex_to_rgb($self->font_color) );
     $cr->move_to($self->padding, $height);
 
     my $layout2 = Pango::Cairo::create_layout($cr);
