@@ -23,6 +23,14 @@ copying the RSS link at the bottom of the page.
 
 ### Installing dependencies
 
+Libaries and tools
+
+```
+sudo apt-get install libcairo2-dev libpango1.0-dev inkscape
+```
+
+Perl dependencies
+
 ```
 cpanm -nq -l local --installdeps .
 ```
