@@ -26,7 +26,7 @@ copying the RSS link at the bottom of the page.
 Libaries and tools
 
 ```
-sudo apt-get install libcairo2-dev libpango1.0-dev inkscape
+sudo apt-get install libcairo2-dev libpango1.0-dev inkscape cpanminus
 ```
 
 Perl dependencies
