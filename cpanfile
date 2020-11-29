@@ -1,6 +1,5 @@
 requires "LWP::UserAgent";
 requires "XML::Feed";
-requires "Data::Dumper";
 requires "Twitter::API";
 requires "Class::Tiny";
 requires "Web::Scraper";
