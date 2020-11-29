@@ -41,13 +41,12 @@ sub run {
             goto NEXT;
         };
 
-        my $newest = $last = $self->state->last_pubdate;
+        my $newest = my $last = $self->state->last_pubdate;
 
         for my $e ( $feed->entries ) {
             my $time = $e->issued->epoch;
 
             if ($time <= $last) {
-                info "skipping %s, too old", $e->link;
                 next;
             }
 
@@ -56,6 +55,8 @@ sub run {
                 info "failed to fetch quote: %s", $res->status_line;
                 goto NEXT;
             }
+
+            info "posting %s", $e->link;
 
             my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
             my $image = Goodquotes::Renderer->new->render($entry);
