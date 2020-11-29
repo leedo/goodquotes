@@ -1,0 +1,9 @@
+requires "LWP::UserAgent";
+requires "XML::Feed";
+requires "Data::Dumper";
+requires "Twitter::API";
+requires "Class::Tiny";
+requires "Web::Scraper";
+requires "JSON::PP";
+requires "Cairo";
+requires "Pango";

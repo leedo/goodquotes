@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+use Goodquotes;
+use Goodquotes::Config;
+use Goodquotes::State;
+
+my $config_path = $ARGV[0] || "./config.json";
+my $config = Goodquotes::Config->new_from_path($config_path);
+
+my $state;
+if (-e $config->state_path) {
+    $state = Goodquotes::State->load($config->state_path);
+} else {
+    $state = Goodquotes::State->new(path => $config->state_path);
+}
+
+my $app = Goodquotes->new(config => $config, state => $state);
+$app->run;
