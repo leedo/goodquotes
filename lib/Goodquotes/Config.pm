@@ -23,6 +23,11 @@ use Class::Tiny qw(
     state_path => "./state.db",
 };
 
+sub twitter_opts {
+    my $self = shift;
+    return map { $_ => $self->$_ } grep defined $self->$_, qw(access_token access_token_secret consumer_key consumer_key_secret);
+}
+
 sub render_opts {
     my $self = shift;
     return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing);

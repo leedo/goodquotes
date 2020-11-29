@@ -1,5 +1,8 @@
 package Goodquotes::Quote;
 
+use strict;
+use warnings;
+
 use Web::Scraper;
 use Class::Tiny qw(author source_url source_name quote);
 

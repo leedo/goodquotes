@@ -15,8 +15,8 @@ use constant {
 use Class::Tiny {
     background   => "fff1e5",
     quote_font   => "Georgia 16",
-    author_font  => "Georgia Bold 16",
-    source_font  => "Georgia Italic 16",
+    author_font  => "Georgia Bold 12",
+    source_font  => "Georgia Italic 12",
     font_color   => "33302e",
     canvas_width => 800,
     padding      => 16,
@@ -65,6 +65,7 @@ sub render {
     $layout2->set_width($width * PANGO_SCALE);
     $layout2->set_wrap("word");
     $layout2->set_text($entry->author);
+    $layout2->set_alignment("right");
     $layout2->set_spacing($self->line_spacing * PANGO_SCALE);
 
     my ($w2, $h2) = $layout2->get_size;
@@ -80,6 +81,7 @@ sub render {
     $layout3->set_width($width * PANGO_SCALE);
     $layout3->set_wrap("word");
     $layout3->set_text($entry->source_name);
+    $layout3->set_alignment("right");
     $layout3->set_spacing($self->line_spacing * PANGO_SCALE);
 
     my ($w3, $h3) = $layout3->get_size;
