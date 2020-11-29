@@ -18,6 +18,7 @@ sub run {
     my $self = shift;
 
     my $twitter = Goodquotes::Twitter->new($self->config->twitter_opts);
+    my $renderer = Goodquotes::Renderer->new($self->config->render_opts);
 
     while (1) {
         info "polling for changes";
@@ -42,7 +43,7 @@ sub run {
 
             eval {
                 my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
-                my $image = Goodquotes::Renderer->new($self->config->render_opts)->render($entry);
+                my $image = $renderer->render($entry);
                 $twitter->post($e->link, $image);
             };
 
