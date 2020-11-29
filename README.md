@@ -4,7 +4,7 @@ This program monitors Goodreads for new quotes, and reposts them to Twitter as a
 
 A sample image generated from a Goodreads quote:
 
-<img src="https://prettybrd.com/~leedo/b/out6.png" width=600>
+<img src="https://prettybrd.com/~leedo/b/out7.png" width=600>
 
 ## Setup
 
