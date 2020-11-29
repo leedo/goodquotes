@@ -8,7 +8,9 @@ use Goodquotes::Quote;
 use Goodquotes::Twitter;
 
 use XML::Feed;
-use Class::Tiny qw(config state);
+use Class::Tiny qw(config state), {
+  ua => sub { LWP::UserAgent->new }
+};
 
 sub info;
 
@@ -27,7 +29,7 @@ sub run {
 
         my $last = $self->state->last_pubdate;
         my @sorted = sort { $a->issued->epoch <=> $b->issued->epoch }
-                     grep { $_->issued->epoch <= $last }
+                     grep { $_->issued->epoch > $last }
                      $feed->entries;
 
         for my $e (@sorted) {
