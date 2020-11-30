@@ -15,6 +15,8 @@ use Class::Tiny qw(
     author_font
     source_font
     font_color
+    author_color
+    source_color
     canvas_width
     padding
     line_spacing
@@ -32,7 +34,7 @@ sub twitter_opts {
 
 sub render_opts {
     my $self = shift;
-    return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing convert_cmd);
+    return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing convert_cmd author_color source_color);
 }
 
 sub new_from_path {
