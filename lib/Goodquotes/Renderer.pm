@@ -16,9 +16,9 @@ use constant {
 
 use Class::Tiny {
     background   => "fff1e5",
-    quote_font   => "Georgia 16",
-    author_font  => "Georgia Bold 12",
-    source_font  => "Georgia Italic 12",
+    quote_font   => "Georgia 14",
+    author_font  => "Arial Narrow Bold 12",
+    source_font  => "Arial Narrow 12",
     font_color   => "33302e",
     border_color => "ccc1b7",
     author_color => "990f3d",
