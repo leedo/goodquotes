@@ -24,6 +24,7 @@ use Class::Tiny {
     canvas_width => 800,
     padding      => 16,
     line_spacing => 4,
+    convert_cmd  => ['inkscape', '-z', '-', '-e', '-', '-d', '300'],
 };
 
 sub hex_to_rgb {
@@ -104,7 +105,7 @@ sub render {
     my ($in, $out, $err);
     $err = gensym;
 
-    my $pid = open3 $in, $out, $err, 'inkscape', '-z', '-', '-e', '-', '-d', '300';
+    my $pid = open3 $in, $out, $err, @{ $self->convert_cmd };
 
     my $surface2 = Cairo::SvgSurface->create_for_stream( sub { print $in $_[1] }, undef, $self->canvas_width, $height);
     my $cr2 = Cairo::Context->create($surface2);

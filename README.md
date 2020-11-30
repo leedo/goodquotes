@@ -35,6 +35,16 @@ Perl dependencies
 cpanm -nq -l local --installdeps .
 ```
 
+### Running on Mac
+
+To run this on mac you must install `inkscape`. It is easiest to install this with `brew install inkscape`. With newer versions of Inkscape you must add `convert_cmd` to `config.json`.
+
+```
+{
+  ...
+  "convert_cmd": ["inkscape", "-p", "-o", "-", "--export-type", "png", "-d", "300"]
+}
+```
 
 ### Running goodquotes
 

@@ -19,6 +19,7 @@ use Class::Tiny qw(
     padding
     line_spacing
     border_color
+    convert_cmd
 ), {
     poll_interval => 300,
     state_path => "./state.db",
@@ -31,7 +32,7 @@ sub twitter_opts {
 
 sub render_opts {
     my $self = shift;
-    return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing);
+    return map { $_ => $self->$_ } grep defined $self->$_, qw(background quote_font author_font source_font font_color canvas_width padding line_spacing convert_cmd);
 }
 
 sub new_from_path {
