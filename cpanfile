@@ -6,3 +6,5 @@ requires "Web::Scraper";
 requires "JSON::PP";
 requires "Cairo";
 requires "Pango";
+requires "IPC::Open3";
+requires "Storable";
