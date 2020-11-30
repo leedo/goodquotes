@@ -8,9 +8,7 @@ use Goodquotes::Quote;
 use Goodquotes::Twitter;
 
 use XML::Feed;
-use Class::Tiny qw(config state), {
-  ua => sub { LWP::UserAgent->new }
-};
+use Class::Tiny qw(config state);
 
 sub info;
 
@@ -33,16 +31,10 @@ sub run {
                   $feed->entries;
 
         for my $e (@new) {
-            my $res = $self->ua->get($e->link);
-            if (!$res->is_success) {
-                info "failed to fetch quote: %s", $res->status_line;
-                goto NEXT;
-            }
-
             info "posting %s", $e->link;
 
             eval {
-                my $entry = Goodquotes::Quote->new_from_html($res->decoded_content);
+                my $entry = Goodquotes::Quote->new_from_url($e->link);
                 my $image = $renderer->render($entry);
                 $twitter->post($e->link, $image);
             };

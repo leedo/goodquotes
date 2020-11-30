@@ -1,4 +1,3 @@
-requires "LWP::UserAgent";
 requires "XML::Feed";
 requires "Twitter::API";
 requires "Class::Tiny";

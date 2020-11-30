@@ -13,12 +13,18 @@ my $scraper = scraper {
     process 'a.authorOrTitle', source_name => 'TEXT';
 };
 
-sub new_from_html {
-    my ( $class, $html ) = @_;
-    my $res = $scraper->scrape($html);
+sub new_from_url {
+    my ( $class, $url ) = @_;
+    my $res = $scraper->scrape(URI->new($url));
 
     if (!$res) {
       die "error scraping quote from html";
+    }
+
+    for my $name (qw(quote author source_url source_name)) {
+        if (! defined $res->{$name}) {
+            die "missing $name";
+        }
     }
 
     $res->{author} =~ s/\s*,\s*$//;
