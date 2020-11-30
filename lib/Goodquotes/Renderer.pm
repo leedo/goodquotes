@@ -21,7 +21,7 @@ use Class::Tiny {
     source_font  => "Georgia Italic 12",
     font_color   => "33302e",
     border_color => "ccc1b7",
-    canvas_width => 800,
+    canvas_width => 500,
     padding      => 16,
     line_spacing => 4,
     convert_cmd  => ['inkscape', '-z', '-', '-e', '-', '-d', '300'],
