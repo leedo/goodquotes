@@ -29,6 +29,7 @@ use Class::Tiny {
 
 sub hex_to_rgb {
     my $color = shift;
+    $color =~ s/^#//;
     return map $_ / 255, unpack 'C*', pack 'H*', $color;
 }
 

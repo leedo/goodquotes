@@ -63,12 +63,12 @@ Homebrew, you must add `convert_cmd` to `config.json`.
 
 The following styling options can be set in `config.json`:
 
-  * `background` - background color (default: `fff1e5`)
+  * `background` - background color (default: `#fff1e5`)
   * `quote_font` - font used for quote (default: `Georgia 16`)
   * `author_font` - font used for author name (default: `Georgia Bold 12`)
   * `source_font` - font used for source name (default: `Georgia Italic 12`)
-  * `font_color` - font color used for all text (default: `33302e`)
-  * `border_color` - color used for line separator (default: `ccc1b7`)
+  * `font_color` - font color used for all text (default: `#33302e`)
+  * `border_color` - color used for line separator (default: `#ccc1b7`)
   * `canvas_width` - image width (default: `800`)
   * `padding` - padding size (default: `16`)
   * `line_spacing` - space between lines (default: `4`)
