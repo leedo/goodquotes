@@ -29,6 +29,10 @@ sub new_from_url {
 
     $res->{author} =~ s/\s*,\s*$//;
     $res->{author} =~ s/^\s+//;
+
+    $res->{quote} =~ s/^\x{201C}//;
+    $res->{quote} =~ s/\x{201D}$//;
+
     return $class->new(%$res);
 }
 
