@@ -23,10 +23,16 @@ copying the RSS link at the bottom of the page.
 
 ### Installing dependencies
 
-Libaries and tools
+Debian and Ubuntu
 
 ```
 sudo apt-get install libcairo2-dev libpango1.0-dev inkscape cpanminus
+```
+
+Mac
+
+```
+brew install cairo pango inkscape cpanminus
 ```
 
 Perl dependencies
@@ -35,21 +41,22 @@ Perl dependencies
 cpanm -nq -l local --installdeps .
 ```
 
+### Running goodquotes
+
+```
+perl -Ilib -Ilocal/lib/perl5 bin/goodquotes config.json
+```
+
 ### Running on Mac
 
-To run this on mac you must install `inkscape`. It is easiest to install this with `brew install inkscape`. With newer versions of Inkscape you must add `convert_cmd` to `config.json`.
+With newer versions of Inkscape, such as the version installed by
+Homebrew, you must add `convert_cmd` to `config.json`.
 
 ```
 {
   ...
   "convert_cmd": ["inkscape", "-p", "-o", "-", "--export-type", "png", "-d", "300"]
 }
-```
-
-### Running goodquotes
-
-```
-perl -Ilib -Ilocal/lib/perl5 bin/goodquotes config.json
 ```
 
 ### Configuring image style
