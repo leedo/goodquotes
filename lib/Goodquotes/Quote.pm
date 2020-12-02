@@ -3,6 +3,7 @@ package Goodquotes::Quote;
 use strict;
 use warnings;
 
+use URI;
 use Web::Scraper;
 use Class::Tiny qw(author source_url source_name quote);
 
@@ -30,8 +31,8 @@ sub new_from_url {
     $res->{author} =~ s/\s*,\s*$//;
     $res->{author} =~ s/^\s+//;
 
-    $res->{quote} =~ s/^\x{201C}//;
-    $res->{quote} =~ s/\x{201D}$//;
+    $res->{quote} =~ s/^\s*\x{201C}//;
+    $res->{quote} =~ s/\x{201D}\s*$//;
 
     return $class->new(%$res);
 }
